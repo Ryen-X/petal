@@ -132,7 +132,9 @@ export default function FAQ({
           <h3 className="text-2xl font-bold text-white mb-3">
             Still have questions?
           </h3>
-          <p className="text-slate-300 mb-6" dangerouslySetInnerHTML={{ __html: "Our team is here to help. Reach out and we'll get back to you within 24 hours." }} />
+          <p className="text-slate-300 mb-6">
+            Our team is here to help. Reach out and we&apos;ll get back to you within 24 hours.
+          </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link href={"https://linkedin.com/in/aaryan-codes/"}>
             <button className="px-6 py-3 bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-lg font-semibold hover:from-emerald-600 hover:to-teal-600 transition-all duration-200 shadow-lg hover:shadow-emerald-500/50">

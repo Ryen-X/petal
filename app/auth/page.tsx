@@ -3,9 +3,11 @@
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { createClient } from '@/lib/supabase/client'
+import { useRouter } from 'next/navigation'
 
 export default function AuthPage() {
   const supabase = createClient()
+  const router = useRouter()
 
   const handleGoogleLogin = async () => {
     const { error } = await supabase.auth.signInWithOAuth({
@@ -23,6 +25,8 @@ export default function AuthPage() {
     const { error } = await supabase.auth.signInAnonymously()
     if (error) {
       console.error('Error with anonymous login:', error.message)
+    } else {
+      router.push('/dashboard')
     }
   }
 

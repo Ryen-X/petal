@@ -2,10 +2,11 @@ import React, { useMemo } from 'react';
 import { Satellite, Brain, Users, TrendingUp } from 'lucide-react';
 
 interface AboutProps {
+  title?: string;
   description?: string;
 }
 
-const PillarItem = React.memo(({ pillar }: { pillar: { icon: React.ElementType; title: string; description: string; color: string } }) => {
+const PillarItem = React.memo(({ pillar }: { pillar: { icon: React.ComponentType<React.SVGProps<SVGSVGElement>>; title: string; description: string; color: string } }) => {
   const Icon = pillar.icon;
   return (
     <div
@@ -27,6 +28,7 @@ const PillarItem = React.memo(({ pillar }: { pillar: { icon: React.ElementType; 
 PillarItem.displayName = 'PillarItem';
 
 export default function About({
+  title = "Plant Ecology Tracking & Analytics Labs",
   description = "PETAL is a revolutionary platform that combines cutting-edge satellite technology, artificial intelligence, and community-driven science to provide unprecedented insights into Earth's plant ecosystems."
 }: AboutProps) {
   const pillars = useMemo(() => [
@@ -66,7 +68,7 @@ export default function About({
         {/* Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl sm:text-5xl font-bold text-white mb-6">
-            About <span className="bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent">PETAL</span>
+            About <span className="bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent">{title}</span>
           </h2>
           <p className="text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
             {description}
@@ -85,7 +87,9 @@ export default function About({
             </div>
             <div className="flex-1">
               <h3 className="text-2xl font-bold text-white mb-3">Our Mission</h3>
-              <p className="text-slate-300 leading-relaxed" dangerouslySetInnerHTML={{ __html: "To democratize access to Earth observation data and empower everyone, from researchers to curious citizens, to understand, protect, and celebrate our planet's incredible plant diversity. We believe that by making ecological data accessible and actionable, we can drive meaningful conservation efforts and foster a deeper connection with nature." }} />
+              <p className="text-slate-300 leading-relaxed">
+                To democratize access to Earth observation data and empower everyone, from researchers to curious citizens, to understand, protect, and celebrate our planet&apos;s incredible plant diversity. We believe that by making ecological data accessible and actionable, we can drive meaningful conservation efforts and foster a deeper connection with nature.
+              </p>
             </div>
           </div>
         </div>

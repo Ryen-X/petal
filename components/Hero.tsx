@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { ArrowRight, Globe2, Sparkles } from 'lucide-react';
+import Link from 'next/link';
 
 interface HeroProps {
   heading?: string;
@@ -12,7 +13,7 @@ export default function Hero({
   heading = "Track Earth's Ecosystems in Real-Time",
   subheading = "PETAL combines satellite data, AI forecasting, and community science to monitor plant blooms, species migrations, and ecological changes across the globe.",
   ctaText = "Explore the Globe",
-  ctaLink = "#features"
+  ctaLink = "/map"
 }: HeroProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -38,11 +39,11 @@ export default function Hero({
       size: number;
     }> = [];
 
-    for (let i = 0; i < 50; i++) { // Reduced particle count for better performance
+    for (let i = 0; i < 50; i++) {
       particles.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.8, // Slightly faster movement
+        vx: (Math.random() - 0.5) * 0.8,
         vy: (Math.random() - 0.5) * 0.8,
         size: Math.random() * 2 + 1
       });
@@ -52,19 +53,16 @@ export default function Hero({
     
     const animate = () => {
       if (!ctx || !canvas) return;
-      
-      // Clear canvas without trails - just clear fully each frame
+    
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       particles.forEach((p) => {
         p.x += p.vx;
         p.y += p.vy;
 
-        // Bounce off edges
         if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
         if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
 
-        // Draw particle without trail
         ctx.fillStyle = 'rgba(52, 211, 153, 0.8)';
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
@@ -76,7 +74,6 @@ export default function Hero({
 
     animate();
 
-    // Handle window resize
     const handleResize = () => {
       setCanvasSize();
     };
@@ -139,9 +136,11 @@ export default function Hero({
             <span>{ctaText}</span>
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </a>
+          <Link href={"/dashboard"}>
           <button className="px-8 py-4 bg-slate-800/50 border border-slate-700 text-white rounded-lg font-semibold hover:bg-slate-700/50 transition-all duration-200 backdrop-blur-sm">
             Start from the Dashboard
           </button>
+          </Link>
         </div>
         </div>
     </section>
