@@ -1,36 +1,44 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🌱 PETAL (Plant Ecology Tracking and Analysis Labs)
 
-## Getting Started
+PETAL is an **interactive web-app platform** powered by **AI, NASA's MODIS Dataset, and Google Earth Engine**. It provides real-time insights into global plant ecology, bloom patterns, and forecasting.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🌍 Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 🗺️ World Map Visualization
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+* **Blue markers** → Indicate bloom intensity fetched from the MODIS dataset.
+* **Red markers** → Indicate bloom intensity contributed by users.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 📈 Forecast Page
 
-## Learn More
+* Interactive timeline graphs showing **bloom forecasts** and patterns over time.
 
-To learn more about Next.js, take a look at the following resources:
+### 🤖 In-Built Chatbot
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+* AI-powered chatbot to help users explore datasets, understand trends, and answer ecology-related queries.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 🌐 Contribute Page
 
-## Deploy on Vercel
+* Users can **enter and submit bloom data**.
+* Contributions are displayed openly on the world map to enhance global collaboration.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🚀 Tech Stack
+
+* **NASA MODIS Dataset**
+* **Google Earth Engine**
+* **AI-Powered Analytics**
+* **Interactive Web-Visualization**
+
+---
+
+## 🔮 Purpose
+
+PETAL fosters **open ecological collaboration**, helping researchers, environmentalists, and the public to:
+
+* Track plant bloom intensities globally.
+* Forecast ecological changes.
+* Contribute valuable data to a shared, open-access platform.
