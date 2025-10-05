@@ -6,6 +6,8 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
 import type { LatLngExpression } from 'leaflet';
 import { createClient } from '@/lib/supabase/client';
+import Sidebar from '@/components/Sidebar';
+import BottomNav from '@/components/BottomNav';
 
 type NdviDataPoint = {
   id: number;
@@ -18,6 +20,7 @@ type NdviDataPoint = {
 };
 
 export default function MapClient(): JSX.Element {
+  const [isSidebarOpen] = useState(true);
   const [points, setPoints] = useState<NdviDataPoint[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -105,73 +108,82 @@ export default function MapClient(): JSX.Element {
   const defaultCenter: LatLngExpression = [34.052235, -118.243683];
 
   return (
-    <div style={{ height: '100vh', width: '100vw' }}>
-      {/* MapContainer must have a height via parent element */}
-      <MapContainer
-        center={defaultCenter}
-        zoom={8}
-        scrollWheelZoom={true}
-        className="h-full w-full"
-        style={{ height: '100%', width: '100%' }}
-      >
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
+    <div className="flex h-screen bg-gradient-to-br from-slate-900 to-slate-800 text-white">
+      <Sidebar isSidebarOpen={isSidebarOpen} />
+      <div className="flex-1 flex flex-col overflow-hidden">
+        <main className="flex-1 overflow-x-hidden overflow-y-auto bg-slate-800/50 relative">
+          {/* MapContainer must have a height via parent element */}
+          <MapContainer
+            center={defaultCenter}
+            zoom={8}
+            scrollWheelZoom={true}
+            className="h-full w-full"
+            style={{ height: '100%', width: '100%' }}
+          >
+            <TileLayer
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
 
-        {/* Render markers from Supabase */}
-        {points.map((p) => {
-          if (
-            typeof p.latitude !== 'number' ||
-            typeof p.longitude !== 'number' ||
-            Number.isNaN(p.latitude) ||
-            Number.isNaN(p.longitude)
-          ) {
-            return null;
-          }
-          const pos: LatLngExpression = [p.latitude, p.longitude];
-          const iconToUse = p.source === 'modis' ? modisIcon : userIcon;
+            {/* Render markers from Supabase */}
+            {points.map((p) => {
+              if (
+                typeof p.latitude !== 'number' ||
+                typeof p.longitude !== 'number' ||
+                Number.isNaN(p.latitude) ||
+                Number.isNaN(p.longitude)
+              ) {
+                return null;
+              }
+              const pos: LatLngExpression = [p.latitude, p.longitude];
+              const iconToUse = p.source === 'modis' ? modisIcon : userIcon;
 
-          return (
-            <Marker key={p.id} position={pos} icon={iconToUse}>
-              <Popup>
-                <div style={{ minWidth: 120 }}>
-                  <div>
-                    <strong>NDVI:</strong> {Number(p.ndvi_value).toFixed(3)}
-                  </div>
-                  {p.measurement_date && (
-                    <div>
-                      <strong>Date:</strong> {new Date(p.measurement_date).toLocaleDateString()}
+              return (
+                <Marker key={p.id} position={pos} icon={iconToUse}>
+                  <Popup>
+                    <div style={{ minWidth: 120 }}>
+                      <div>
+                        <strong>NDVI:</strong> {(Number(p.ndvi_value) / 10000).toFixed(3)}
+                      </div>
+                      <div>
+                        <strong>Lat, Lon:</strong> {p.latitude.toFixed(4)}, {p.longitude.toFixed(4)}
+                      </div>
+                      {p.measurement_date && (
+                        <div>
+                          <strong>Date:</strong> {new Date(p.measurement_date).toLocaleDateString()}
+                        </div>
+                      )}
+                      {p.source === 'modis' ? (
+                        <div>
+                          <strong>Source:</strong> Loaded from MODIS dataset
+                        </div>
+                      ) : (
+                        <div>
+                          <strong>Contributor:</strong> {p.username || 'Anonymous'}
+                        </div>
+                      )}
                     </div>
-                  )}
-                  {p.source === 'modis' ? (
-                    <div>
-                      <strong>Source:</strong> Loaded from MODIS dataset
-                    </div>
-                  ) : (
-                    <div>
-                      <strong>Contributor:</strong> {p.username || 'Anonymous'}
-                    </div>
-                  )}
-                </div>
-              </Popup>
-            </Marker>
-          );
-        })}
-      </MapContainer>
+                  </Popup>
+                </Marker>
+              );
+            })}
+          </MapContainer>
 
-      {/* Simple status overlay */}
-      <div style={{ position: 'absolute', right: 12, top: 12, zIndex: 1000 }}>
-        {loading && <div className="rounded bg-white/90 p-2 shadow">Loading…</div>}
-        {error && (
-          <div className="rounded bg-red-500/90 text-white p-2 shadow" title={error}>
-            {error}
+          {/* Simple status overlay */}
+          <div style={{ position: 'absolute', right: 12, top: 12, zIndex: 1000 }}>
+            {loading && <div className="rounded bg-white/90 p-2 shadow">Loading…</div>}
+            {error && (
+              <div className="rounded bg-red-500/90 text-white p-2 shadow" title={error}>
+                {error}
+              </div>
+            )}
+            {!loading && !error && points.length === 0 && (
+              <div className="rounded bg-white/90 p-2 shadow">No points</div>
+            )}
           </div>
-        )}
-        {!loading && !error && points.length === 0 && (
-          <div className="rounded bg-white/90 p-2 shadow">No points</div>
-        )}
+        </main>
       </div>
+      <BottomNav />
     </div>
   );
 }

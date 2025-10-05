@@ -14,6 +14,5 @@ export async function GET(request: Request) {
     }
   }
 
-  // Return the user to an error page with some instructions
   return NextResponse.redirect(`${requestUrl.origin}/auth-error`)
 }

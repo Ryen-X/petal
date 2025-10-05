@@ -136,9 +136,9 @@ export default function Hero({
             <span>{ctaText}</span>
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </a>
-          <Link href={"/dashboard"}>
+          <Link href={"/contribute"}>
           <button className="px-8 py-4 bg-slate-800/50 border border-slate-700 text-white rounded-lg font-semibold hover:bg-slate-700/50 transition-all duration-200 backdrop-blur-sm">
-            Start from the Dashboard
+            Contribute
           </button>
           </Link>
         </div>

@@ -11,21 +11,13 @@ export default function Footer({
   tagline = "Tracking Earth's ecosystems, one bloom at a time."
 }: FooterProps) {
   const footerLinks = {
-    product: [
-      { name: 'Features', href: '#about' },
-      { name: 'API Documentation', href: '#api' },
-    ],
     company: [
       { name: 'About Us', href: '#about' },
-      { name: 'Contact', href: '#contact' }
+      { name: 'Contact', href: 'https://linkedin.com/in/aaryan-codes/' }
     ],
     resources: [
-      { name: 'Documentation', href: '#docs' },
+      { name: 'Documentation', href: 'https://github.com/Ryen-X/petal' },
       { name: 'FAQs', href: '#faq' }
-    ],
-    legal: [
-      { name: 'Privacy Policy', href: '#privacy' },
-      { name: 'Terms of Service', href: '#terms' }
     ]
   };
 
@@ -71,23 +63,6 @@ export default function Footer({
             </div>
           </div>
 
-          {/* Product Links */}
-          <div>
-            <h3 className="text-white font-semibold mb-4">Product</h3>
-            <ul className="space-y-3">
-              {footerLinks.product.map((link, i) => (
-                <li key={i}>
-                  <a
-                    href={link.href}
-                    className="text-slate-400 hover:text-emerald-400 transition-colors text-sm"
-                  >
-                    {link.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
           {/* Company Links */}
           <div>
             <h3 className="text-white font-semibold mb-4">Company</h3>
@@ -110,23 +85,6 @@ export default function Footer({
             <h3 className="text-white font-semibold mb-4">Resources</h3>
             <ul className="space-y-3">
               {footerLinks.resources.map((link, i) => (
-                <li key={i}>
-                  <a
-                    href={link.href}
-                    className="text-slate-400 hover:text-emerald-400 transition-colors text-sm"
-                  >
-                    {link.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Legal Links */}
-          <div>
-            <h3 className="text-white font-semibold mb-4">Legal</h3>
-            <ul className="space-y-3">
-              {footerLinks.legal.map((link, i) => (
                 <li key={i}>
                   <a
                     href={link.href}
